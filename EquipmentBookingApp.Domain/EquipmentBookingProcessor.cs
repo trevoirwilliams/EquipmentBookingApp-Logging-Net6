@@ -1,9 +1,17 @@
 ﻿using EquipmentBookingApp.Domain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace EquipmentBookingApp.Domain
 {
     public class EquipmentBookingProcessor : IEquipmentBookingProcessor
     {
+        private readonly ILogger<EquipmentBookingProcessor> _logger;
+
+        public EquipmentBookingProcessor(ILogger<EquipmentBookingProcessor> logger)
+        {
+            this._logger = logger;
+        }
+
         public async Task<IEnumerable<Equipment>> GetEquipment(int Id)
         {
             return GetAllEquipment().Where(q => q.Id.Equals(Id));
@@ -16,6 +24,7 @@ namespace EquipmentBookingApp.Domain
 
         public async Task<IEnumerable<Equipment>> GetEquipmentByCategory(string category)
         {
+            _logger.LogInformation("Returning all Equipment with category {category}", category);
             return GetAllEquipment().Where(q => q.Category.Equals(category));
         }
 
