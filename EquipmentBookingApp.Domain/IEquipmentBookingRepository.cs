@@ -2,10 +2,10 @@
 
 namespace EquipmentBookingApp.Domain
 {
-    public interface IEquipmentBookingProcessor
+    public interface IEquipmentBookingRepository
     {
         Task<IEnumerable<Equipment>> GetEquipmentByCategory(string category);
-        Task<IEnumerable<Equipment>> GetEquipment(int Id);
+        Task<Equipment> GetEquipment(int Id);
         Task<IEnumerable<Equipment>> GetEquipment();
     }
 }

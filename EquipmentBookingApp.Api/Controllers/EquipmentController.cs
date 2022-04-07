@@ -1,4 +1,5 @@
-﻿using EquipmentBookingApp.Domain;
+﻿using EquipmentBookingApp.Core;
+using EquipmentBookingApp.Domain;
 using EquipmentBookingApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +9,12 @@ namespace EquipmentBookingApp.Api.Controllers
     [Route("[controller]")]
     public class EquipmentController : ControllerBase
     {
-        private readonly IEquipmentBookingProcessor _equipmentBookProcessor;
+        private readonly IEquipmentBookingService _equipmentBookService;
         private readonly ILogger<EquipmentController> _logger;
 
-        public EquipmentController(IEquipmentBookingProcessor equipmentBookProcessor, ILogger<EquipmentController> logger)
+        public EquipmentController(IEquipmentBookingService equipmentBookService, ILogger<EquipmentController> logger)
         {
-            _equipmentBookProcessor = equipmentBookProcessor;
+            _equipmentBookService = equipmentBookService;
             _logger = logger;
         }
 
@@ -21,7 +22,7 @@ namespace EquipmentBookingApp.Api.Controllers
         public async Task<IEnumerable<Equipment>> Get(string category = "all")
         {
             _logger.LogInformation("API Request for equipment with category {category}", category);
-            return await _equipmentBookProcessor.GetEquipmentByCategory(category);
+            return await _equipmentBookService.GetEquipmentByCategory(category);
         }
     }
 }
